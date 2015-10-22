@@ -9,7 +9,7 @@ class LinearRegression:
     theta = None
     alpha = 0
 
-    def __init__(self, alpha=0.00001, theta=None):
+    def __init__(self, alpha=0.0001, theta=None):
         self.theta = theta
         self.alpha = alpha
 
@@ -52,7 +52,7 @@ source = []
 price = []
 for line in fd:
     tmp = line[: -1].split()
-    source.append([np.double(i) for i in tmp[0: len(tmp) - 1]])
+    source.append(np.append(1., [np.double(i) for i in tmp[0: len(tmp) - 1]]))
     price.append(np.double(tmp[-1]))
 fd.close()
 
@@ -61,7 +61,7 @@ normalMat(testSet)
 testy = np.array(price[0: 100]).T
 trainSet = np.array(source[100: -1]).T
 normalMat(trainSet)
-trainy = np.array(price[100: -1]).T
+trainy = np.array(price[100: -1])
 
 LR = LinearRegression()
 (theta, cost) = LR.train(trainSet, trainy)
